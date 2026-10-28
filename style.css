@@ -1,0 +1,28 @@
+:root{--bg:#f5f7fb;--card:#fff;--tx:#1b2430;--mu:#64748b;--bd:#e2e8f0;--pr:#4f46e5;--ok:#16a34a;--bad:#dc2626;--warn:#d97706;color-scheme:light}
+@media (prefers-color-scheme:dark){:root{--bg:#0f172a;--card:#1e293b;--tx:#e8edf5;--mu:#94a3b8;--bd:#334155;--pr:#818cf8;--ok:#4ade80;--bad:#f87171;--warn:#fbbf24;color-scheme:dark}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.5}
+header,main{max-width:1000px;margin:auto;padding:16px}
+header{padding-bottom:0}h1{font-size:1.4rem;margin:0}h2{font-size:1rem;margin:0 0 8px}
+main{display:grid;gap:14px}
+.sub{color:var(--mu);font-size:.9rem;margin-top:4px}
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:14px}
+label{display:block;font-size:.8rem;color:var(--mu);margin-bottom:4px}
+input[type=text],input[type=password],input:not([type]),textarea{width:100%;font:inherit;font-size:.9rem;color:var(--tx);background:var(--bg);border:1px solid var(--bd);border-radius:8px;padding:9px 10px}
+textarea{min-height:220px;resize:vertical}
+button{font:inherit;cursor:pointer;background:var(--pr);color:#fff;border:0;border-radius:8px;padding:10px 16px;font-weight:600}
+button.ghost{background:transparent;color:var(--pr);border:1px solid var(--pr)}
+button:disabled{opacity:.6;cursor:wait}
+.bar{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.note{font-size:.78rem;color:var(--mu)}
+.err{color:var(--bad);font-size:.9rem}
+#res{display:grid;gap:14px}
+.top{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.ring{width:96px;height:96px;border-radius:50%;display:grid;place-items:center;flex:none}
+.ring span{width:74px;height:74px;border-radius:50%;background:var(--card);display:grid;place-items:center;font-size:1.5rem;font-weight:700}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{padding:3px 10px;border-radius:999px;font-size:.82rem;border:1px solid var(--bd)}
+.chip.g{color:var(--ok);border-color:var(--ok)}.chip.r{color:var(--bad);border-color:var(--bad)}
+ul{margin:0;padding-left:18px}li{margin:4px 0}
+.rew{white-space:pre-wrap;background:var(--bg);border:1px dashed var(--bd);border-radius:8px;padding:10px;font-size:.92rem}
