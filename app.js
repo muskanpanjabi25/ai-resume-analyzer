@@ -19,7 +19,7 @@ $("saveKey").onclick = () => {
 
 // ---- Gemini call ----
 async function callGemini(prompt) {
-  const key = $("key").value.trim();
+  const key = $("key").value.trim().replace(/^["']+|["']+$/g, "").replace(/\s+/g, "");
   const model = $("model").value.trim() || "gemini-2.5-flash";
   if (!key) throw new Error("Please paste your Gemini API key in Settings first.");
   const url = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`;
@@ -40,10 +40,11 @@ async function callGemini(prompt) {
     throw new Error(e.name === "AbortError" ? "Request timed out. Try again." : "Network error. Check your internet connection.");
   } finally { clearTimeout(timer); }
   if (!res.ok) {
-    if (res.status === 400 || res.status === 403) throw new Error("API key is invalid or not allowed. Check your key.");
-    if (res.status === 404) throw new Error("Model not found. Change the model name in Settings (see Google AI Studio for current names).");
-    if (res.status === 429) throw new Error("Rate limit reached. Wait a minute and try again.");
-    throw new Error("Gemini API error (" + res.status + "). Try again later.");
+    let detail = "";
+    try { detail = (await res.json()).error?.message || ""; } catch (e) {}
+    if (res.status === 429) throw new Error("Rate limit reached. Wait a minute and try again. " + detail);
+    if (res.status === 404) throw new Error("Model not found. Change the model name in Settings. " + detail);
+    throw new Error("Google API error " + res.status + ": " + (detail || "no details") );
   }
   const data = await res.json();
   const parts = (data.candidates?.[0]?.content?.parts || []).filter(p => p.text && !p.thought);
